@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -7,6 +5,7 @@ public class CharacterManager : MonoBehaviour
 {
     public GameObject avatar;
     public GameObject ghost;
+    public GameObject enemy;
     [SerializeField] private float speed;
     [SerializeField] private float jumpPower;
     [SerializeField] private LayerMask groundLayer;
@@ -15,6 +14,7 @@ public class CharacterManager : MonoBehaviour
 
     bool canSwitch = true;
     public bool isGhost = false;
+    public bool isPossessing = false;
     bool isCrouching = false;
     bool toggleCrouch = true;
     private float horizontalInput;
@@ -27,10 +27,12 @@ public class CharacterManager : MonoBehaviour
     private Rigidbody cBody;
     private BoxCollider cBoxCollider;
     private Animator cAnim;
+    private Rigidbody bodyEnemy;
+    private BoxCollider boxColliderEnemy;
+    private Animator animEnemy;
 
     private float wallJumpCooldown;
     public bool isAlive;
-
     private void Awake()
     {
         //Grab references for rigidbody and animator from object
@@ -40,6 +42,9 @@ public class CharacterManager : MonoBehaviour
         bodyGhost = ghost.GetComponent<Rigidbody>();
         animGhost = ghost.GetComponent<Animator>();
         boxColliderGhost = ghost.GetComponent<BoxCollider>();
+        bodyEnemy = enemy.GetComponent<Rigidbody>();
+        animEnemy = enemy.GetComponent<Animator>();
+        boxColliderEnemy = enemy.GetComponent<BoxCollider>();
         cBody = bodyAvatar;
         cBoxCollider = boxColliderAvatar;
         cAnim = animAvatar;
@@ -48,22 +53,37 @@ public class CharacterManager : MonoBehaviour
     void Update()
     {
         //Check whether the player is releasing the left alt key
-        if (Input.GetKeyUp(KeyCode.LeftAlt))
-        {
-            canSwitch = true;
-        }
+        if (Input.GetKeyUp(KeyCode.LeftAlt)) canSwitch = true;
+
 
         //Switch between ghost and human form if able
         if (canSwitchCharacter() && canSwitch && Input.GetKey(KeyCode.LeftAlt) && isAlive)
         {
             isGhost = !isGhost;
-            if (!isGhost)
+            if (isPossessing)
             {
-                cBody = bodyAvatar;
-                cBoxCollider = boxColliderAvatar;
-                cAnim = animAvatar;
-                ghost.SetActive(false);
-
+                cBody = bodyGhost;
+                cBoxCollider = boxColliderGhost;
+                cAnim = animGhost;
+                bodyGhost.transform.position = bodyEnemy.position;
+                ghost.SetActive(true);
+                isPossessing = false;
+                isGhost = true;
+            }
+            else if (!isGhost)
+            {
+                if (Vector3.Distance(bodyGhost.transform.position, bodyAvatar.transform.position) < 1)
+                {
+                    cBody = bodyAvatar;
+                    cBoxCollider = boxColliderAvatar;
+                    cAnim = animAvatar;
+                    ghost.SetActive(false);
+                    isGhost = false;
+                }
+                else
+                {
+                    isGhost = true;
+                }
             }
             else
             {
@@ -73,6 +93,7 @@ public class CharacterManager : MonoBehaviour
                 cAnim = animGhost;
                 bodyGhost.transform.position = bodyAvatar.position;
                 ghost.SetActive(true);
+                isGhost = true;
 
             }
             canSwitch = false;
@@ -85,6 +106,15 @@ public class CharacterManager : MonoBehaviour
         else
         {
             characterController(ghost.transform);
+        }
+        if(Input.GetKey(KeyCode.E) && canPossess())
+        {
+            isGhost = false;
+            ghost.SetActive(false);
+            isPossessing = true;
+            cBody = bodyEnemy;
+            cBoxCollider = boxColliderEnemy;
+            cAnim = animEnemy;
         }
     }
 
@@ -110,7 +140,7 @@ public class CharacterManager : MonoBehaviour
             cBody.velocity = new Vector2(horizontalInput * speed, cBody.velocity.y);
             if (onWall() && !isGrounded())
             {
-                cBody.useGravity = true; //FIXME?
+                cBody.useGravity = false; //FIXME?
                 cBody.velocity = Vector2.zero;
             }
             else
@@ -176,6 +206,13 @@ public class CharacterManager : MonoBehaviour
         else
             return true;
     }
+    bool canPossess()
+    {
+        if (!isGhost || isPossessing) return false;
+        float distance = Vector3.Distance(bodyGhost.transform.position, bodyEnemy.transform.position);
+        if (distance > 1) return false;
+        return true;
+    }
 
     private void Jump(Transform character)
     {
@@ -188,11 +225,11 @@ public class CharacterManager : MonoBehaviour
         {
             if (horizontalInput == 0)
             {
-                cBody.velocity = new Vector2(-Mathf.Sign(character.localScale.x) * 10, 0);
-                character.localScale = new Vector3(-Mathf.Sign(character.localScale.x), character.localScale.y, character.localScale.z);
+                //cBody.velocity = new Vector2(-Mathf.Sign(character.localScale.x) * 10, 0);
+                //character.localScale = new Vector3(-Mathf.Sign(character.localScale.x), character.localScale.y, character.localScale.z);
             }
             else
-                cBody.velocity = new Vector2(-Mathf.Sign(character.localScale.x) * 3, 6);
+                //cBody.velocity = new Vector2(-Mathf.Sign(character.localScale.x) * 3, 6);
 
             wallJumpCooldown = 0;
         }
@@ -208,6 +245,10 @@ public class CharacterManager : MonoBehaviour
         avatar.transform.position = new Vector3(0, -1, 0);
         avatar.SetActive(true);
         isAlive = true;
+    }
+    private void interactbutton()
+    {
+
     }
     private bool isGrounded()
     {
