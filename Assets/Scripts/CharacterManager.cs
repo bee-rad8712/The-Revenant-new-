@@ -240,6 +240,7 @@ public class CharacterManager : MonoBehaviour
     public async void onDeath()
     {
         cAnim.SetTrigger("Death");
+        await Task.Delay(2500);
         isAlive = false;
         avatar.SetActive(false);
         bodyAvatar.velocity = Vector3.zero;
