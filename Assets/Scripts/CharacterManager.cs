@@ -72,7 +72,7 @@ public class CharacterManager : MonoBehaviour
             }
             else if (!isGhost)
             {
-                if (Vector3.Distance(bodyGhost.transform.position, bodyAvatar.transform.position) < 1)
+                if (Vector3.Distance(bodyGhost.transform.position, bodyAvatar.transform.position) < 5)
                 {
                     cBody = bodyAvatar;
                     cBoxCollider = boxColliderAvatar;
@@ -123,12 +123,15 @@ public class CharacterManager : MonoBehaviour
 
         //read the inputs and make character.transform.position change accordingly
         horizontalInput = Input.GetAxis("Horizontal");
-        
+
         //Flip player when moving left-right
-        if (horizontalInput > 0.01f)
-            character.localScale = Vector3.one;
-        else if (horizontalInput < -0.01f)
-            character.localScale = new Vector3(-1, 1, 1);
+        if (!isPossessing && !isGhost)
+        {
+            if (horizontalInput > 0.01f)
+                character.localScale = Vector3.one;
+            else if (horizontalInput < -0.01f)
+                character.localScale = new Vector3(-1, 1, 1);
+        }
 
         //Set animator parameters
         cAnim.SetBool("Running", horizontalInput != 0);
@@ -210,7 +213,7 @@ public class CharacterManager : MonoBehaviour
     {
         if (!isGhost || isPossessing) return false;
         float distance = Vector3.Distance(bodyGhost.transform.position, bodyEnemy.transform.position);
-        if (distance > 1) return false;
+        //if (distance > 1) return false;
         return true;
     }
 
