@@ -55,13 +55,13 @@ public class CharacterManager : MonoBehaviour
         //Check whether the player is releasing the left alt key
         if (Input.GetKeyUp(KeyCode.LeftAlt)) canSwitch = true;
 
-
         //Switch between ghost and human form if able
         if (canSwitchCharacter() && canSwitch && Input.GetKey(KeyCode.LeftAlt) && isAlive)
         {
             isGhost = !isGhost;
             if (isPossessing)
             {
+                cAnim.SetTrigger("Project");
                 cBody = bodyGhost;
                 cBoxCollider = boxColliderGhost;
                 cAnim = animGhost;
@@ -237,8 +237,9 @@ public class CharacterManager : MonoBehaviour
             wallJumpCooldown = 0;
         }
     }
-    private async void onDeath()
+    public async void onDeath()
     {
+        cAnim.SetTrigger("Death");
         isAlive = false;
         avatar.SetActive(false);
         bodyAvatar.velocity = Vector3.zero;
