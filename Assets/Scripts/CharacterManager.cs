@@ -176,6 +176,7 @@ public class CharacterManager : MonoBehaviour
             
             if (Input.GetKeyUp(KeyCode.S) && isAlive)
                 bodyGhost.velocity = new Vector2(bodyGhost.velocity.x, 0);
+           
         }
         
         //Crouching and kill bind
@@ -240,10 +241,11 @@ public class CharacterManager : MonoBehaviour
     public async void onDeath()
     {
         cAnim.SetTrigger("Death");
+        bodyAvatar.velocity = Vector3.zero;
         await Task.Delay(2500);
         isAlive = false;
         avatar.SetActive(false);
-        bodyAvatar.velocity = Vector3.zero;
+        
         //GameObject rp = respawnManager.GetRespawnPoint();
         await Task.Delay(2500);
         //avatar.transform.position = rp.transform.position;
@@ -251,9 +253,10 @@ public class CharacterManager : MonoBehaviour
         avatar.SetActive(true);
         isAlive = true;
     }
-    private void interactbutton()
+    public void destroyCamera()
     {
-
+        Debug.Log("Camera Animation");
+        cAnim.SetTrigger("GhostInteract");
     }
     private bool isGrounded()
     {
