@@ -8,10 +8,7 @@ public class SecurityCamera : MonoBehaviour
     {
         isactive = true;
     }
-    private void Update()
-    {
 
-    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player") cm.onDeath();

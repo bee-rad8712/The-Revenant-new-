@@ -12,6 +12,7 @@ public class CharacterManager : MonoBehaviour
     [SerializeField] private LayerMask wallLayer;
     [SerializeField] RespawnManager respawnManager;
 
+    public double mana;
     bool canSwitch = true;
     public bool isGhost = false;
     public bool isPossessing = false;
@@ -85,9 +86,11 @@ public class CharacterManager : MonoBehaviour
                     isGhost = true;
                 }
             }
-            else
+            else if (mana > 10)
             {
                 //Set position of the ghost to right in front of the avatar
+                mana -= 10;
+                Debug.Log(mana);
                 cBody = bodyGhost;
                 cBoxCollider = boxColliderGhost;
                 cAnim = animGhost;
@@ -106,9 +109,11 @@ public class CharacterManager : MonoBehaviour
         else
         {
             characterController(ghost.transform);
+            mana -= 0.01;
         }
         if(Input.GetKey(KeyCode.E) && canPossess())
         {
+            mana -= 30;
             isGhost = false;
             ghost.SetActive(false);
             isPossessing = true;
@@ -212,6 +217,7 @@ public class CharacterManager : MonoBehaviour
     }
     bool canPossess()
     {
+        if (mana < 30) return false;
         if (!isGhost || isPossessing) return false;
         float distance = Vector3.Distance(bodyGhost.transform.position, bodyEnemy.transform.position);
         //if (distance > 1) return false;
@@ -255,7 +261,6 @@ public class CharacterManager : MonoBehaviour
     }
     public void destroyCamera()
     {
-        Debug.Log("Camera Animation");
         cAnim.SetTrigger("GhostInteract");
     }
     private bool isGrounded()
