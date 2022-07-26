@@ -1554,8 +1554,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a3bbb18ae5559a458c7602ba63eb1a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  securityCamera: {fileID: 1435864009}
+  securityCamera: {fileID: 1204563033}
   camObject: {fileID: 956612359}
+  cm: {fileID: 110315386}
   xAngle: 0.5
   yAngle: 0
   zAngle: 0
@@ -1722,6 +1723,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   securityCamera: {fileID: 1435864009}
   camObject: {fileID: 1080574838}
+  cm: {fileID: 0}
   xAngle: 0
   yAngle: 0
   zAngle: 0.2
