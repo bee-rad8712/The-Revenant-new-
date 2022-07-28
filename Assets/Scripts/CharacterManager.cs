@@ -11,8 +11,10 @@ public class CharacterManager : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask wallLayer;
     [SerializeField] RespawnManager respawnManager;
+    [SerializeField] Health healthbar;
 
     public double mana;
+    public float gravityScale;
     bool canSwitch = true;
     public bool isGhost = false;
     public bool isPossessing = false;
@@ -53,6 +55,11 @@ public class CharacterManager : MonoBehaviour
     }
     void Update()
     {
+        if (!isPossessing && !isGhost)
+        {
+            Vector3 gravity = gravityScale * Vector3.up;
+            bodyAvatar.AddForce(gravity, ForceMode.Acceleration);
+        }
         //Check whether the player is releasing the left alt key
         if (Input.GetKeyUp(KeyCode.LeftAlt)) canSwitch = true;
 
@@ -226,10 +233,11 @@ public class CharacterManager : MonoBehaviour
 
     private void Jump(Transform character)
     {
-        if (isGrounded())
+        cBody.velocity = new Vector2(cBody.velocity.x, jumpPower);
+        cAnim.SetTrigger("Jump");
+        /*if (isGrounded())
         {
-            cBody.velocity = new Vector2(cBody.velocity.x, jumpPower);
-            cAnim.SetTrigger("Jump");
+            
         }
         else if (onWall() && !isGrounded())
         {
@@ -242,7 +250,7 @@ public class CharacterManager : MonoBehaviour
                 //cBody.velocity = new Vector2(-Mathf.Sign(character.localScale.x) * 3, 6);
 
             wallJumpCooldown = 0;
-        }
+        }*/
     }
     public async void onDeath()
     {
@@ -254,6 +262,7 @@ public class CharacterManager : MonoBehaviour
         
         //GameObject rp = respawnManager.GetRespawnPoint();
         await Task.Delay(2500);
+        healthbar.currentHealth = 100;
         //avatar.transform.position = rp.transform.position;
         avatar.transform.position = new Vector3(0, -1, 0);
         avatar.SetActive(true);

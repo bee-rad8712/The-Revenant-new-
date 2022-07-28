@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
+	[SerializeField] CharacterManager cm;	
 	[SerializeField]private float startingHealth;
-	public float currentHealth {get; private set;}
+	public float currentHealth;
 
 	private void Awake()
 	{
@@ -19,7 +20,7 @@ public class Health : MonoBehaviour
 		}
 		else
 		{
-			//player dead
+			cm.onDeath();
 		}
 	}
 }

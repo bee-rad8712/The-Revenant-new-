@@ -8,7 +8,6 @@ public class Lever : MonoBehaviour
     {
         if(!cm.isGhost && Input.GetKey(KeyCode.R))
         {
-            Debug.Log("Open door!");
             door.Opendoor();
         }
     }
