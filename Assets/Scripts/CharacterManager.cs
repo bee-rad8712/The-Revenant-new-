@@ -13,7 +13,12 @@ public class CharacterManager : MonoBehaviour
     [SerializeField] RespawnManager respawnManager;
     [SerializeField] Health healthbar;
 
+    public double possessManaCost;
+    public double ghostManaCost;
+    public double transformCost;
+    public double manaRegen;
     public double mana;
+    public double maxMana;
     public float gravityScale;
     bool canSwitch = true;
     public bool isGhost = false;
@@ -55,16 +60,15 @@ public class CharacterManager : MonoBehaviour
     }
     void Update()
     {
-        if (!isPossessing && !isGhost)
-        {
-            Vector3 gravity = gravityScale * Vector3.up;
-            bodyAvatar.AddForce(gravity, ForceMode.Acceleration);
+        if(isGhost && mana <= 0)
+        {           
+            onDeath();
         }
         //Check whether the player is releasing the left alt key
         if (Input.GetKeyUp(KeyCode.LeftAlt)) canSwitch = true;
 
         //Switch between ghost and human form if able
-        if (canSwitchCharacter() && canSwitch && Input.GetKey(KeyCode.LeftAlt) && isAlive)
+        if (canSwitch && Input.GetKey(KeyCode.LeftAlt) && isAlive)
         {
             isGhost = !isGhost;
             if (isPossessing)
@@ -81,7 +85,7 @@ public class CharacterManager : MonoBehaviour
             else if (!isGhost)
             {
                 if (Vector3.Distance(bodyGhost.transform.position, bodyAvatar.transform.position) < 5)
-                {
+                {                 
                     cBody = bodyAvatar;
                     cBoxCollider = boxColliderAvatar;
                     cAnim = animAvatar;
@@ -93,10 +97,10 @@ public class CharacterManager : MonoBehaviour
                     isGhost = true;
                 }
             }
-            else if (mana > 10)
+            else if (mana > transformCost)
             {
                 //Set position of the ghost to right in front of the avatar
-                mana -= 10;
+                mana -= transformCost;
                 Debug.Log(mana);
                 cBody = bodyGhost;
                 cBoxCollider = boxColliderGhost;
@@ -116,11 +120,17 @@ public class CharacterManager : MonoBehaviour
         else
         {
             characterController(ghost.transform);
-            mana -= 0.01;
+            mana -= ghostManaCost;
         }
-        if(Input.GetKey(KeyCode.E) && canPossess())
+        if (!isPossessing && !isGhost)
         {
-            mana -= 30;
+            Vector3 gravity = gravityScale * Vector3.up;
+            bodyAvatar.AddForce(gravity, ForceMode.Acceleration);
+            if (mana < maxMana) mana += manaRegen;
+        }
+        if (Input.GetKey(KeyCode.E) && canPossess())
+        {
+            mana -= possessManaCost;
             isGhost = false;
             ghost.SetActive(false);
             isPossessing = true;
@@ -224,7 +234,7 @@ public class CharacterManager : MonoBehaviour
     }
     bool canPossess()
     {
-        if (mana < 30) return false;
+        if (mana < possessManaCost) return false;
         if (!isGhost || isPossessing) return false;
         float distance = Vector3.Distance(bodyGhost.transform.position, bodyEnemy.transform.position);
         //if (distance > 1) return false;
@@ -235,11 +245,11 @@ public class CharacterManager : MonoBehaviour
     {
         cBody.velocity = new Vector2(cBody.velocity.x, jumpPower);
         cAnim.SetTrigger("Jump");
-        /*if (isGrounded())
+        if (isGrounded())
         {
-            
+            Debug.Log("Grounded");
         }
-        else if (onWall() && !isGrounded())
+        /*else if (onWall() && !isGrounded())
         {
             if (horizontalInput == 0)
             {
@@ -254,8 +264,14 @@ public class CharacterManager : MonoBehaviour
     }
     public async void onDeath()
     {
+        cBody = bodyAvatar;
+        cBoxCollider = boxColliderAvatar;
+        cAnim = animAvatar;
+        ghost.SetActive(false);
+        isGhost = false;
         cAnim.SetTrigger("Death");
         bodyAvatar.velocity = Vector3.zero;
+        ghost.SetActive(false);
         await Task.Delay(2500);
         isAlive = false;
         avatar.SetActive(false);
@@ -263,10 +279,12 @@ public class CharacterManager : MonoBehaviour
         //GameObject rp = respawnManager.GetRespawnPoint();
         await Task.Delay(2500);
         healthbar.currentHealth = 100;
+        mana = maxMana;
         //avatar.transform.position = rp.transform.position;
         avatar.transform.position = new Vector3(0, -1, 0);
         avatar.SetActive(true);
         isAlive = true;
+        characterController(avatar.transform);
     }
     public void destroyCamera()
     {
@@ -274,8 +292,9 @@ public class CharacterManager : MonoBehaviour
     }
     private bool isGrounded()
     {
-        RaycastHit2D raycastHit = Physics2D.BoxCast(cBoxCollider.bounds.center, cBoxCollider.bounds.size, 0, Vector2.down, 0.1f, groundLayer);
-        return raycastHit.collider != null;
+        //RaycastHit raycastHit = Physics.BoxCast(cBoxCollider.bounds.center, cBoxCollider.bounds.size, Vector3.down, Quaternion , 0.1f, groundLayer);
+        //return raycastHit.collider != null;
+        return true;
     }
     private bool onWall()
     {

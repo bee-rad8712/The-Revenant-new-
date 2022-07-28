@@ -1,16 +1,15 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Healthbar : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] Health healthbar;
+    public Image img;
+    public float fillamount;
+    private void Update()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        fillamount = (healthbar.currentHealth) / healthbar.startingHealth;
+        img.fillAmount = fillamount;
     }
 }
+
