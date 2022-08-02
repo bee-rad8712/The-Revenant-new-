@@ -237,7 +237,7 @@ public class CharacterManager : MonoBehaviour
         if (mana < possessManaCost) return false;
         if (!isGhost || isPossessing) return false;
         float distance = Vector3.Distance(bodyGhost.transform.position, bodyEnemy.transform.position);
-        //if (distance > 1) return false;
+        if (distance > 3) return false;
         return true;
     }
 
