@@ -6268,7 +6268,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   respawnManager: {fileID: 0}
-  healthbar: {fileID: 0}
+  healthbar: {fileID: 55340905}
   possessManaCost: 15
   ghostManaCost: 0.02
   transformCost: 5
