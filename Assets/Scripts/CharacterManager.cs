@@ -77,14 +77,14 @@ public class CharacterManager : MonoBehaviour
                 cBody = bodyGhost;
                 cBoxCollider = boxColliderGhost;
                 cAnim = animGhost;
-                bodyGhost.transform.position = bodyEnemy.position;
+                bodyGhost.transform.position = bodyEnemy.position + new Vector3(0, 0, -5);
                 ghost.SetActive(true);
                 isPossessing = false;
                 isGhost = true;
             }
             else if (!isGhost)
             {
-                if (Vector3.Distance(bodyGhost.transform.position, bodyAvatar.transform.position) < 5)
+                if (Vector3.Distance(bodyGhost.transform.position, bodyAvatar.transform.position) < 8)
                 {                 
                     cBody = bodyAvatar;
                     cBoxCollider = boxColliderAvatar;
@@ -105,7 +105,7 @@ public class CharacterManager : MonoBehaviour
                 cBody = bodyGhost;
                 cBoxCollider = boxColliderGhost;
                 cAnim = animGhost;
-                bodyGhost.transform.position = bodyAvatar.position;
+                bodyGhost.transform.position = bodyAvatar.position + new Vector3(0, 0, -5);
                 ghost.SetActive(true);
                 isGhost = true;
 
@@ -237,7 +237,7 @@ public class CharacterManager : MonoBehaviour
         if (mana < possessManaCost) return false;
         if (!isGhost || isPossessing) return false;
         float distance = Vector3.Distance(bodyGhost.transform.position, bodyEnemy.transform.position);
-        if (distance > 3) return false;
+        if (distance > 10) return false;
         return true;
     }
 
@@ -281,7 +281,7 @@ public class CharacterManager : MonoBehaviour
         healthbar.currentHealth = 100;
         mana = maxMana;
         //avatar.transform.position = rp.transform.position;
-        avatar.transform.position = new Vector3(0, -1, 0);
+        avatar.transform.position = new Vector3(0, 0, 0);
         avatar.SetActive(true);
         isAlive = true;
         characterController(avatar.transform);
