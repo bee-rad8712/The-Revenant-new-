@@ -9,5 +9,7 @@ public class Hurtbox : MonoBehaviour
         {
             health.TakeDamage(20);
         }
+        if (other.tag == ("Projectile")) Debug.Log("Damage!");
+        Debug.Log("Damage!");
     }
 }

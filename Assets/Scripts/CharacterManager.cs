@@ -68,7 +68,7 @@ public class CharacterManager : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.LeftAlt)) canSwitch = true;
 
         //Switch between ghost and human form if able
-        if (canSwitch && Input.GetKey(KeyCode.LeftAlt) && isAlive)
+        if (canSwitch && Input.GetKey(KeyCode.LeftAlt) && isAlive && bodyAvatar.velocity == Vector3.zero)
         {
             isGhost = !isGhost;
             if (isPossessing)
