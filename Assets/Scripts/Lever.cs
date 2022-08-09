@@ -4,11 +4,23 @@ public class Lever : MonoBehaviour
 {
     [SerializeField] CharacterManager cm;
     [SerializeField] Door door;
+    [SerializeField] int direction;
+    [SerializeField] bool ghostLever;
     private void OnTriggerStay(Collider other)
     {
-        if(!cm.isGhost && Input.GetKey(KeyCode.R))
+        if (!ghostLever)
         {
-            door.Opendoor();
+            if (!cm.isGhost && Input.GetKey(KeyCode.R))
+            {
+                door.Opendoor(direction);
+            }
+        }
+        else
+        {
+            if (cm.isGhost && Input.GetKey(KeyCode.R))
+            {
+                door.Opendoor(direction);
+            }
         }
     }
 }

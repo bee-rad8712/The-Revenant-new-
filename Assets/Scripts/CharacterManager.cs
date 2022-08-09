@@ -20,6 +20,7 @@ public class CharacterManager : MonoBehaviour
     public double mana;
     public double maxMana;
     public float gravityScale;
+    public double teleportCost;
     bool canSwitch = true;
     public bool isGhost = false;
     public bool isPossessing = false;
@@ -67,8 +68,21 @@ public class CharacterManager : MonoBehaviour
         //Check whether the player is releasing the left alt key
         if (Input.GetKeyUp(KeyCode.LeftAlt)) canSwitch = true;
 
+        if (Input.GetKey(KeyCode.F) && isGhost && mana > teleportCost)
+        {
+            mana -= teleportCost;
+            Debug.Log("Teleport!");
+            isGhost = !isGhost;
+            bodyAvatar.transform.position = bodyGhost.position + new Vector3(0, 0, 5);
+            cBody = bodyAvatar;
+            cBoxCollider = boxColliderAvatar;
+            cAnim = animAvatar;
+            ghost.SetActive(false);
+            isGhost = false;
+        }
+
         //Switch between ghost and human form if able
-        if (canSwitch && Input.GetKey(KeyCode.LeftAlt) && isAlive && bodyAvatar.velocity == Vector3.zero)
+        if (canSwitch && Input.GetKey(KeyCode.LeftAlt) && isAlive && bodyAvatar.velocity.magnitude <= 1)
         {
             isGhost = !isGhost;
             if (isPossessing)
@@ -154,6 +168,13 @@ public class CharacterManager : MonoBehaviour
             else if (horizontalInput < -0.01f)
                 character.localScale = new Vector3(-1, 1, 1);
         }
+        if(isGhost)
+        {
+            if (horizontalInput > 0.01f)
+                character.localScale = Vector3.one;
+            else if (horizontalInput < -0.01f)
+                character.localScale = new Vector3(-1, 1, 1);
+        }
 
         //Set animator parameters
         cAnim.SetBool("Running", horizontalInput != 0);
@@ -188,16 +209,17 @@ public class CharacterManager : MonoBehaviour
         if (isGhost)
         {
             if (Input.GetKey(KeyCode.W) && isAlive)
-                bodyGhost.velocity = new Vector2(bodyGhost.velocity.x, jumpPower);
+                bodyGhost.velocity = new Vector2(bodyGhost.velocity.x, jumpPower*2);
             
             if (Input.GetKeyUp(KeyCode.W) && isAlive) 
                 bodyGhost.velocity = new Vector2(bodyGhost.velocity.x, 0);
 
             if (Input.GetKey(KeyCode.S) && isAlive)
-                bodyGhost.velocity = new Vector2(bodyGhost.velocity.x, -jumpPower);
+                bodyGhost.velocity = new Vector2(bodyGhost.velocity.x, -jumpPower*2);
             
             if (Input.GetKeyUp(KeyCode.S) && isAlive)
                 bodyGhost.velocity = new Vector2(bodyGhost.velocity.x, 0);
+
            
         }
         

@@ -10,7 +10,11 @@ public class Health : MonoBehaviour
 	{
 		currentHealth = startingHealth;
 	}
-	public void TakeDamage(float _damage)
+    private void Update()
+    {
+        if(currentHealth > startingHealth) currentHealth = startingHealth;
+    }
+    public void TakeDamage(float _damage)
 	{
 		currentHealth = Mathf.Clamp(currentHealth - _damage, 0, startingHealth);
 		
