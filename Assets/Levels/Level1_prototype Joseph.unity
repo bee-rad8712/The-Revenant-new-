@@ -1107,6 +1107,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cm: {fileID: 0}
   door: {fileID: 0}
+  direction: 0
+  ghostLever: 0
 --- !u!65 &92021344
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2948,7 +2950,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 297443204}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1630257597}
+        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+        m_MethodName: LoadMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &297443204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6101,6 +6115,7 @@ MonoBehaviour:
   mana: 50
   maxMana: 50
   gravityScale: -10
+  teleportCost: 0
   isGhost: 0
   isPossessing: 0
   isAlive: 0
@@ -10444,7 +10459,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh24660
+  m_Name: pb_Mesh-26632
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -12756,7 +12771,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1047364889}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1630257597}
+        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+        m_MethodName: QuitGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1047364889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14787,7 +14814,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1260563705}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1630257597}
+        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+        m_MethodName: Resume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1260563705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18625,6 +18664,7 @@ MonoBehaviour:
   body: {fileID: 1648074482}
   speed: 10
   time: 2000
+  waitTime: 0
 --- !u!65 &1648074484
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -23983,8 +24023,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &2041883766 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 8850501578782495771, guid: c3761c146fefa554dbad2132c382b433, type: 3}
-  m_PrefabInstance: {fileID: 8850501578909153389}
+  m_CorrespondingSourceObject: {fileID: 6631285199344313412, guid: fac96c61ed34de842aa2fdb6a31eec04, type: 3}
+  m_PrefabInstance: {fileID: 6631285199735719986}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2053265743
 GameObject:
@@ -24684,76 +24724,76 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06b8e49c6197c7b4d956e053f2cf9f13, type: 3}
---- !u!1001 &8850501578909153389
+--- !u!1001 &6631285199735719986
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 1669757746}
     m_Modifications:
-    - target: {fileID: 8850501578650515777, guid: c3761c146fefa554dbad2132c382b433, type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 834066931}
-    - target: {fileID: 8850501578650515779, guid: c3761c146fefa554dbad2132c382b433, type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 834066931}
-    - target: {fileID: 8850501578650515779, guid: c3761c146fefa554dbad2132c382b433, type: 3}
-      propertyPath: m_VersionIndex
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 8850501578650515782, guid: c3761c146fefa554dbad2132c382b433, type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 834066931}
-    - target: {fileID: 8850501578782495768, guid: c3761c146fefa554dbad2132c382b433, type: 3}
-      propertyPath: m_Name
-      value: VicCapsule
-      objectReference: {fileID: 0}
-    - target: {fileID: 8850501578782495771, guid: c3761c146fefa554dbad2132c382b433, type: 3}
+    - target: {fileID: 6631285199344313412, guid: fac96c61ed34de842aa2fdb6a31eec04, type: 3}
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 8850501578782495771, guid: c3761c146fefa554dbad2132c382b433, type: 3}
+    - target: {fileID: 6631285199344313412, guid: fac96c61ed34de842aa2fdb6a31eec04, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.7299995
       objectReference: {fileID: 0}
-    - target: {fileID: 8850501578782495771, guid: c3761c146fefa554dbad2132c382b433, type: 3}
+    - target: {fileID: 6631285199344313412, guid: fac96c61ed34de842aa2fdb6a31eec04, type: 3}
       propertyPath: m_LocalPosition.y
       value: 8.94
       objectReference: {fileID: 0}
-    - target: {fileID: 8850501578782495771, guid: c3761c146fefa554dbad2132c382b433, type: 3}
+    - target: {fileID: 6631285199344313412, guid: fac96c61ed34de842aa2fdb6a31eec04, type: 3}
       propertyPath: m_LocalPosition.z
       value: 1.85
       objectReference: {fileID: 0}
-    - target: {fileID: 8850501578782495771, guid: c3761c146fefa554dbad2132c382b433, type: 3}
+    - target: {fileID: 6631285199344313412, guid: fac96c61ed34de842aa2fdb6a31eec04, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.03310103
       objectReference: {fileID: 0}
-    - target: {fileID: 8850501578782495771, guid: c3761c146fefa554dbad2132c382b433, type: 3}
+    - target: {fileID: 6631285199344313412, guid: fac96c61ed34de842aa2fdb6a31eec04, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0.71376765
       objectReference: {fileID: 0}
-    - target: {fileID: 8850501578782495771, guid: c3761c146fefa554dbad2132c382b433, type: 3}
+    - target: {fileID: 6631285199344313412, guid: fac96c61ed34de842aa2fdb6a31eec04, type: 3}
       propertyPath: m_LocalRotation.y
       value: 0.698998
       objectReference: {fileID: 0}
-    - target: {fileID: 8850501578782495771, guid: c3761c146fefa554dbad2132c382b433, type: 3}
+    - target: {fileID: 6631285199344313412, guid: fac96c61ed34de842aa2fdb6a31eec04, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0.029016893
       objectReference: {fileID: 0}
-    - target: {fileID: 8850501578782495771, guid: c3761c146fefa554dbad2132c382b433, type: 3}
+    - target: {fileID: 6631285199344313412, guid: fac96c61ed34de842aa2fdb6a31eec04, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0.383
       objectReference: {fileID: 0}
-    - target: {fileID: 8850501578782495771, guid: c3761c146fefa554dbad2132c382b433, type: 3}
+    - target: {fileID: 6631285199344313412, guid: fac96c61ed34de842aa2fdb6a31eec04, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 174.969
       objectReference: {fileID: 0}
-    - target: {fileID: 8850501578782495771, guid: c3761c146fefa554dbad2132c382b433, type: 3}
+    - target: {fileID: 6631285199344313412, guid: fac96c61ed34de842aa2fdb6a31eec04, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 91.181
       objectReference: {fileID: 0}
+    - target: {fileID: 6631285199344313415, guid: fac96c61ed34de842aa2fdb6a31eec04, type: 3}
+      propertyPath: m_Name
+      value: VicCapsule
+      objectReference: {fileID: 0}
+    - target: {fileID: 6631285199476558105, guid: fac96c61ed34de842aa2fdb6a31eec04, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 834066931}
+    - target: {fileID: 6631285199476558108, guid: fac96c61ed34de842aa2fdb6a31eec04, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 834066931}
+    - target: {fileID: 6631285199476558108, guid: fac96c61ed34de842aa2fdb6a31eec04, type: 3}
+      propertyPath: m_VersionIndex
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 6631285199476558110, guid: fac96c61ed34de842aa2fdb6a31eec04, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 834066931}
     m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: c3761c146fefa554dbad2132c382b433, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: fac96c61ed34de842aa2fdb6a31eec04, type: 3}
