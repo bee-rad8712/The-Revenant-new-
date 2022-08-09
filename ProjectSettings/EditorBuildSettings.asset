@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Levels/TestMenu.unity
-    guid: d696f636d4b1e4741bcac599c6c05f4b
+    path: Assets/Levels/Menu.unity
+    guid: 374b7cf2f020a3b4f9545091fce2b34a
   - enabled: 1
     path: Assets/Levels/Level1_prototype Joseph.unity
     guid: 024d704fcb962cb468aa0cde7c22c3f5
