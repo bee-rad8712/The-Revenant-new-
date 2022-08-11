@@ -9,11 +9,17 @@ EditorBuildSettings:
     path: Assets/Levels/Menu.unity
     guid: 374b7cf2f020a3b4f9545091fce2b34a
   - enabled: 1
+    path: Assets/Levels/CutScene.unity
+    guid: 0d3e8fcb41c93574c821f849c0ac0589
+  - enabled: 1
     path: Assets/Levels/Level1_prototype_Brad.unity
     guid: f6237654d37dbb6439b41f1e0a28c5ac
   - enabled: 1
     path: Assets/Levels/Menu 1.unity
     guid: 58fd357d70a2bf24abe4abed6ef67f01
+  - enabled: 1
+    path: Assets/Levels/WinScreen.unity
+    guid: d95cafa36b7c1274ea8fbe99a70d29c5
   - enabled: 0
     path: Assets/Levels/Level1_prototype Joseph.unity
     guid: 024d704fcb962cb468aa0cde7c22c3f5
