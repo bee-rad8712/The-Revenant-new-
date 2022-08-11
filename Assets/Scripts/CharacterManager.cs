@@ -35,7 +35,7 @@ public class CharacterManager : MonoBehaviour
     private Animator animGhost;
     private Rigidbody cBody;
     private BoxCollider cBoxCollider;
-    private Animator cAnim;
+    public Animator cAnim;
     private Rigidbody bodyEnemy;
     private BoxCollider boxColliderEnemy;
     private Animator animEnemy;
@@ -67,6 +67,10 @@ public class CharacterManager : MonoBehaviour
         }
         //Check whether the player is releasing the left alt key
         if (Input.GetKeyUp(KeyCode.LeftAlt)) canSwitch = true;
+        if (Input.GetKey(KeyCode.Mouse1))
+        {
+            cAnim.SetTrigger("VicMelee");
+        }
 
         if (Input.GetKey(KeyCode.F) && isGhost && mana > teleportCost)
         {

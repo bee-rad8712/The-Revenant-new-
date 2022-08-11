@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
     private float location;
     public float turnDist;
     private Rigidbody rb;
+    private Animator animator;
     [SerializeField] int enemyHP;
     [SerializeField] int attackCooldowntime;
     [SerializeField] int attackCooldown;
@@ -16,11 +17,12 @@ public class Enemy : MonoBehaviour
     private void Awake()
     {
         rb = enemy.GetComponent<Rigidbody>();
+        animator = enemy.GetComponent<Animator>();  
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == ("Projectile")) Debug.Log("Damage!");
-        Debug.Log("Damage!");
+        //Debug.Log("Damage!");
     }
     private void Update()
     {
@@ -38,11 +40,17 @@ public class Enemy : MonoBehaviour
         {
             
             Debug.Log("Hit!");
+            animator.SetTrigger("EnemyHit");
             attackCooldown = attackCooldowntime;
             enemyHP--;
         }
         if(attackCooldown > 0) attackCooldown--;
-        if (enemyHP <= 0) Destroy(enemy);
+        if (enemyHP <= 0)
+        {
+            animator.SetTrigger("EnemyKilled");
+            Task.Delay(1300);
+            Destroy(enemy);
+        }     
     }
     private bool canAttack()
     {

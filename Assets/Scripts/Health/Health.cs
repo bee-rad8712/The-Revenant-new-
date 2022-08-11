@@ -20,7 +20,8 @@ public class Health : MonoBehaviour
 		
 		if (currentHealth > 0)
 		{
-			//player hurt
+			Debug.Log("Hurt");
+			cm.cAnim.SetTrigger("VicHurt");
 		}
 		else
 		{
