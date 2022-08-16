@@ -1433,6 +1433,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3c340a79341a6478d72a0aefc13fa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioMixer: {fileID: 0}
 --- !u!1 &1106134575
 GameObject:
   m_ObjectHideFlags: 0
@@ -1895,7 +1896,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1315707118}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-        m_MethodName: ReturnMain
+        m_MethodName: ReturnDeathMain
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
