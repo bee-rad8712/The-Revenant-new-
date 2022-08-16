@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class CharacterManager : MonoBehaviour
 {
     public GameObject avatar;
@@ -12,6 +12,7 @@ public class CharacterManager : MonoBehaviour
     [SerializeField] private LayerMask wallLayer;
     [SerializeField] RespawnManager respawnManager;
     [SerializeField] Health healthbar;
+    [SerializeField] int lives;
 
     public double possessManaCost;
     public double ghostManaCost;
@@ -298,10 +299,15 @@ public class CharacterManager : MonoBehaviour
         cAnim.SetTrigger("Death");
         bodyAvatar.velocity = Vector3.zero;
         ghost.SetActive(false);
-        await Task.Delay(2500);
+        await Task.Delay(1267);
         isAlive = false;
         avatar.SetActive(false);
-        
+        lives--;
+        if(lives <= 0)
+        {
+            Debug.Log("Game Over");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
         //GameObject rp = respawnManager.GetRespawnPoint();
         await Task.Delay(2500);
         healthbar.currentHealth = 100;

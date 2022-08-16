@@ -47,9 +47,7 @@ public class Enemy : MonoBehaviour
         if(attackCooldown > 0) attackCooldown--;
         if (enemyHP <= 0)
         {
-            animator.SetTrigger("EnemyKilled");
-            Task.Delay(1300);
-            Destroy(enemy);
+            onDeath();
         }     
     }
     private bool canAttack()
@@ -58,5 +56,10 @@ public class Enemy : MonoBehaviour
         if(Vector3.Distance(player.transform.position, enemy.transform.position) > 5) return false;
         if(cm.isAlive == false) return false;
         return true;
+    }
+    private void onDeath()
+    {
+        Task.Delay(1000);
+        Destroy(enemy);
     }
 }
