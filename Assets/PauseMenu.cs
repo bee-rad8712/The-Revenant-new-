@@ -40,11 +40,12 @@ public class PauseMenu : MonoBehaviour
 
     public void LoadMenu()
     {
-        Debug.Log("menu");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        //Debug.Log("menu");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
     }
     public void QuitGame()
     {
-        Debug.Log("quit");
+        //Debug.Log("quit");
+        Application.Quit();
     }
 }

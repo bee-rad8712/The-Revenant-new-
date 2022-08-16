@@ -12,8 +12,8 @@ EditorBuildSettings:
     path: Assets/Levels/CutScene.unity
     guid: 0d3e8fcb41c93574c821f849c0ac0589
   - enabled: 1
-    path: Assets/Levels/Level1_prototype_Brad.unity
-    guid: f6237654d37dbb6439b41f1e0a28c5ac
+    path: Assets/Levels/FinalLevel.unity
+    guid: e18ae945cb9d6ed4798cd046e2379cc9
   - enabled: 1
     path: Assets/Levels/Menu 1.unity
     guid: 58fd357d70a2bf24abe4abed6ef67f01
@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Levels/Level1_prototype Joseph.unity
     guid: 024d704fcb962cb468aa0cde7c22c3f5
+  - enabled: 0
+    path: Assets/Levels/Level1_prototype_Brad.unity
+    guid: f6237654d37dbb6439b41f1e0a28c5ac
   m_configObjects: {}
