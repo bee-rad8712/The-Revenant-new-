@@ -370,21 +370,23 @@ MonoBehaviour:
 
     -Ghost Melee(while Astral Form): Left Click
 
-    Pause: ESC
+    -Jump: Spacebar
+
+    -Pause:
+    ESC
 
 
-    Mana
-    Cost Abilities:
+    Mana Cost Abilities:
 
     (Note If Mana reaches 0 YOU DIE)
 
-    -Astral Form: left
-    Alt
+    -Astral
+    Form: left Alt
 
     -Possesion(While in Astral form): E
 
-    -Teleport to Ghost (while Astral
-    Form): F
+    -Teleport to Ghost
+    (while Astral Form): F
 
 
 '
@@ -558,7 +560,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &232696621
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3555,7 +3557,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1315707115
 RectTransform:
   m_ObjectHideFlags: 0
