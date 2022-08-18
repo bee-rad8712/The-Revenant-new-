@@ -299,7 +299,7 @@ public class CharacterManager : MonoBehaviour
         cAnim.SetTrigger("Death");
         bodyAvatar.velocity = Vector3.zero;
         ghost.SetActive(false);
-        await Task.Delay(1267);
+        await Task.Delay(867);
         isAlive = false;
         avatar.SetActive(false);
         lives--;
